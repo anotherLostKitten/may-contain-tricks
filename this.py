@@ -29,3 +29,30 @@ class Img:
         for i in self.img:
             txt+=str(i/65536)+" "+str(i/256%256)+" "+str(i/256)+" "
         return txt
+
+class Etrx:
+    def __init__(self):
+        self.m=[]
+    def e(self,s):
+        for i in (*s,1):
+            self.m.append(i)
+    def __str__(self):
+        txt=""
+        for i in range(4):
+            for j in range(0,len(self.m),4):
+                txt+=("  " if self.m[i+j]<10 else " " if self.m[i+j]<100 else "") + str(self.m[i+j])+" "
+            txt+="\n"
+        return txt
+    def x(self,m):
+        tmp=self.m[:]
+        for i in range(len(self.m)):
+            tmp[i]=sum(self.m[i-i%4+k]*m[4*i%4+k] for k in range(4))
+        self.m=tmp
+if __name__ == "__main__":
+    a = Etrx()
+    a.e((30,20,0))
+    a.e((40,50,0))
+    a.e((60,10,0))
+    print(a)
+    a.x((1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1))
+    print(a)
