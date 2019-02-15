@@ -29,7 +29,6 @@ class Img:
         for i in self.img:
             txt+=str(i/65536)+" "+str(i/256%256)+" "+str(i/256)+" "
         return txt
-
 class Etrx:
     def __init__(self):
         self.m=[]
@@ -44,10 +43,7 @@ class Etrx:
             txt+="\n"
         return txt
     def x(self,m):
-        tmp=self.m[:]
-        for i in range(len(self.m)):
-            tmp[i]=sum(self.m[i-i%4+k]*m[4*i%4+k] for k in range(4))
-        self.m=tmp
+        self.m=[sum(self.m[i-(i%4)+k]*m[i%4*4+k] for k in range(4)) for i in range(len(self.m))]
 if __name__ == "__main__":
     a = Etrx()
     a.e((30,20,0))
